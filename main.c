@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/17 23:06:10 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/18 19:27:36 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "mlx.h"
+#include "fdf.h"
 
-typedef struct
-{
-	void *mlx;
-	void *win;
-
-}t_ml;
 
 int		test(void *param)
 {
@@ -44,37 +39,18 @@ int		loop_hook(void *param)
 	return (0);
 }
 
-void	print_line(t_ml *env, float startx, float endx, float starty, float endy)
-{
-	int lengthx;
-	int lengthy;
-	int i;
-	float y;
 
-	lengthx = endx - startx;
-	lengthy = endy - starty;
-	printf("print_line !\n");
-	i = 0;
-
-
-	//printf("lengthx = %d\n", lengthx);
-	// printf("y = %d\n");
-
-	while (i < lengthx)
-	{
-		y = ((float)lengthy / (float)lengthx) * i;
-		printf("%f\n", y);
-		mlx_pixel_put(env->mlx, env->win, (int)startx + i, starty + (int)y, 0x00FFFFFF);
-		i++;
-	}
-
-	//tous les tant sur x je dois incrementer y
-	//je dois prendre la longueur de x et la longueur y et diviser y par x ? si y = 2 et x = 10 je veux que y = 5 donc 10/2=x/y   y=x/y
-
-}
 
 int		quit(int keycode, void *param)
 {
+	t_v2d a;
+	t_v2d b;
+	t_v2d c;
+	t_v2d d;
+	t_v2d e;
+	t_v2d f;
+	t_v2d g;
+	t_v2d h;
 	t_ml *ptr;
 	int x;
 	int y;
@@ -90,7 +66,32 @@ int		quit(int keycode, void *param)
 
 	if (keycode == 12)
 	{
-		print_line(ptr, 50.0, 344.0, 40.0, 120.0);
+		a.x = 400;
+		b.x = 750;
+		a.y = 400;
+		b.y = 750;
+
+		c.x = 400;
+		d.x = 750;
+		c.y = 400;
+		d.y = 100;
+
+		e.x = 400;
+		f.x = 40;
+		e.y = 400;
+		f.y = 10;
+
+		g.x = 750;
+		h.x = 40;
+		g.y = 100;
+		h.y = 10;
+
+		draw_line(ptr, a, b);
+		draw_line(ptr, c, d);
+		draw_line(ptr, e, f);
+		draw_line(ptr, g, h);
+		mlx_pixel_put(ptr->mlx, ptr->win, a.x, a.y, 0x00FF0000);
+		mlx_pixel_put(ptr->mlx, ptr->win, b.x, b.y, 0x00FF0000);
 	}
 
 	if (keycode == 13)
@@ -124,7 +125,7 @@ int main(void)
 	x = 50;
 	y = 50;
 	mlx = mlx_init();
-	win = mlx_new_window (mlx, 600, 600, "vieille pute");
+	win = mlx_new_window (mlx, 800, 800, "Sam Fisher");
 
 	ml->mlx = mlx;
 	ml->win = win;

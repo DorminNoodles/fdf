@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/18 19:27:36 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/19 18:45:59 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,32 +66,42 @@ int		quit(int keycode, void *param)
 
 	if (keycode == 12)
 	{
-		a.x = 400;
-		b.x = 750;
-		a.y = 400;
-		b.y = 750;
+		a.x = 0;
+		b.x = 0;
+		a.y = 0;
+		b.y = 1 * 64;
 
-		c.x = 400;
-		d.x = 750;
-		c.y = 400;
-		d.y = 100;
+		c.x = 0 * 64;
+		d.x = 1 * 64;
+		c.y = 0;
+		d.y = 0;
 
-		e.x = 400;
+		e.x = 0;
 		f.x = 40;
-		e.y = 400;
+		e.y = 0;
 		f.y = 10;
 
-		g.x = 750;
-		h.x = 40;
-		g.y = 100;
-		h.y = 10;
+		g.x = 0;
+		h.x = 250;
+		g.y = 0;
+		h.y = 380;
 
-		draw_line(ptr, a, b);
-		draw_line(ptr, c, d);
-		draw_line(ptr, e, f);
-		draw_line(ptr, g, h);
-		mlx_pixel_put(ptr->mlx, ptr->win, a.x, a.y, 0x00FF0000);
-		mlx_pixel_put(ptr->mlx, ptr->win, b.x, b.y, 0x00FF0000);
+		//draw_line(ptr, a, b);
+		//draw_line_iso(ptr, a, b);
+		draw_line_iso(ptr, c, d);
+		//draw_line_iso(ptr, c, d);
+		// draw_line(ptr, c, d);
+		// draw_line(ptr, e, f);
+		// draw_line(ptr, g, h);
+		// mlx_pixel_put(ptr->mlx, ptr->win, a.x, a.y, 0x00FF0000);
+		// mlx_pixel_put(ptr->mlx, ptr->win, b.x, b.y, 0x00FF0000);
+		// mlx_pixel_put(ptr->mlx, ptr->win, c.x, c.y, 0x00FF0000);
+		// mlx_pixel_put(ptr->mlx, ptr->win, d.x, d.y, 0x00FF0000);
+
+		// mlx_pixel_put(ptr->mlx, ptr->win, e.x + 1, e.y, 0x00FF0000);
+		//mlx_pixel_put(ptr->mlx, ptr->win, f.x, f.y, 0x00FF0000);
+
+		mlx_pixel_put(ptr->mlx, ptr->win, 0, 0, 0x00FFFF00);
 	}
 
 	if (keycode == 13)
@@ -125,10 +135,12 @@ int main(void)
 	x = 50;
 	y = 50;
 	mlx = mlx_init();
-	win = mlx_new_window (mlx, 800, 800, "Sam Fisher");
+	win = mlx_new_window (mlx, SCREEN_SIZE_X, SCREEN_SIZE_Y, WINDOW_TITLE);
 
 	ml->mlx = mlx;
 	ml->win = win;
+	ml->origin.x = SCREEN_SIZE_X / 2;
+	ml->origin.y = SCREEN_SIZE_Y / 2;
 
 /*
 	while (y < 300)

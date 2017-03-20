@@ -6,14 +6,13 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/19 18:45:59 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/20 01:21:48 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "mlx.h"
 #include "fdf.h"
 
 
@@ -51,6 +50,10 @@ int		quit(int keycode, void *param)
 	t_v2d f;
 	t_v2d g;
 	t_v2d h;
+	t_v2d i;
+	t_v2d j;
+	t_v2d k;
+	t_v2d l;
 	t_ml *ptr;
 	int x;
 	int y;
@@ -66,29 +69,43 @@ int		quit(int keycode, void *param)
 
 	if (keycode == 12)
 	{
-		a.x = 0;
-		b.x = 0;
-		a.y = 0;
-		b.y = 1 * 64;
+		a.x = 1;
+		b.x = 2;
+		a.y = 1;
+		b.y = 1;
 
-		c.x = 0 * 64;
-		d.x = 1 * 64;
-		c.y = 0;
-		d.y = 0;
+		c.x = 2;
+		d.x = 2;
+		c.y = 1;
+		d.y = 2;
 
-		e.x = 0;
-		f.x = 40;
-		e.y = 0;
-		f.y = 10;
+		e.x = 1;
+		f.x = 1;
+		e.y = 1;
+		f.y = 2;
 
-		g.x = 0;
-		h.x = 250;
-		g.y = 0;
-		h.y = 380;
+		g.x = 1;
+		h.x = 2;
+		g.y = 2;
+		h.y = 2;
+
+		i.x = 0;
+		j.x = 1;
+		i.y = 0;
+		j.y = 0;
+
+		k.x = 1;
+		l.x = 1;
+		k.y = 0;
+		l.y = 1;
 
 		//draw_line(ptr, a, b);
-		//draw_line_iso(ptr, a, b);
+		draw_line_iso(ptr, a, b);
 		draw_line_iso(ptr, c, d);
+		draw_line_iso(ptr, e, f);
+		draw_line_iso(ptr, g, h);
+		draw_line_iso(ptr, i, j);
+		draw_line_iso(ptr, k, l);
 		//draw_line_iso(ptr, c, d);
 		// draw_line(ptr, c, d);
 		// draw_line(ptr, e, f);

@@ -6,11 +6,11 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/19 18:47:33 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/20 01:26:10 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
+//#include "mlx.h"
 #include "fdf.h"
 
 float	find_length(t_v2d p1, t_v2d p2)
@@ -33,28 +33,20 @@ float	find_length(t_v2d p1, t_v2d p2)
 
 void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2)
 {
-	// 1 sur x
-	printf("p2x = %f\n", p2.x);
-	printf("p2y = %f\n", p2.y);
-
-	//p2.x = p2.x;
-	p1.y += (p1.x/32) * 32;
-	p2.y += (p2.x/32) * 32;
-
-	p2.x -= (p2.y/32) * 32;
-
-	printf("p1y = %f\n", p1.y);
-	printf("p2y = %f\n", p2.y);
-	printf("p1x = %f\n", p1.x);
-	printf("p2x = %f\n", p2.x);
+	t_v2d a;
+	t_v2d b;
 
 
+	a.x = (p1.x * 32) - (p1.y * 32);
+	a.y = (p1.y * 32) + (p1.x * 32);
+	b.x = (p2.x * 32) - (p2.y * 32);
+	b.y = (p2.y * 32) + (p2.x * 32);
 
 	// p2.x -= 64;
 	// p1.y -= 32;
 	// p2.y += 64;
 
-	draw_line(env, p1, p2);
+	draw_line(env, a, b);
 }
 
 void	draw_line(t_ml *env, t_v2d p1, t_v2d p2)

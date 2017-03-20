@@ -8,7 +8,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C minilibx_macos/
-	clang $(SRCS_NAME) -lmlx -framework OpenGL -framework AppKit
+	clang $(SRCS_NAME) -I minilibx_macos -L minilibx_macos -lmlx -framework OpenGL -framework AppKit
 
 clean :
 	rm -f $(OBJS)

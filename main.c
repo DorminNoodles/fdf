@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/20 01:21:48 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/20 22:08:16 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,14 @@ int		quit(int keycode, void *param)
 		l.y = 1;
 
 		//draw_line(ptr, a, b);
-		draw_line_iso(ptr, a, b);
-		draw_line_iso(ptr, c, d);
-		draw_line_iso(ptr, e, f);
-		draw_line_iso(ptr, g, h);
-		draw_line_iso(ptr, i, j);
-		draw_line_iso(ptr, k, l);
+		// draw_line_iso(ptr, a, b);
+		// draw_line_iso(ptr, c, d);
+		// draw_line_iso(ptr, e, f);
+		// draw_line_iso(ptr, g, h);
+		// draw_line_iso(ptr, i, j);
+		// draw_line_iso(ptr, k, l);
+
+		draw_map(ptr, NULL);
 		//draw_line_iso(ptr, c, d);
 		// draw_line(ptr, c, d);
 		// draw_line(ptr, e, f);
@@ -152,12 +154,12 @@ int main(void)
 	x = 50;
 	y = 50;
 	mlx = mlx_init();
-	win = mlx_new_window (mlx, SCREEN_SIZE_X, SCREEN_SIZE_Y, WINDOW_TITLE);
+	win = mlx_new_window (mlx, SCREEN_WIDTH, SCREEN_SIZE_Y, WINDOW_TITLE);
 
 	ml->mlx = mlx;
 	ml->win = win;
-	ml->origin.x = SCREEN_SIZE_X / 2;
-	ml->origin.y = SCREEN_SIZE_Y / 2;
+	ml->origin.x = SCREEN_WIDTH / 2;
+	ml->origin.y = 50;
 
 /*
 	while (y < 300)

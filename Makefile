@@ -1,6 +1,7 @@
 NAME = fdf
 SRCS_NAME =		main.c					\
-				draw.c
+				draw.c					\
+				map.c
 
 OBJS = $(SRCS_NAME:.c=.o)
 

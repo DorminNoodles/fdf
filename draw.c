@@ -6,12 +6,64 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/20 01:26:10 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/20 22:16:52 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "mlx.h"
 #include "fdf.h"
+
+void	draw_map(t_ml *env, int **map)
+{
+	int i;
+	int j;
+
+	t_v2d a;
+	t_v2d b;
+
+
+	i = 0;
+	a.z = 0;
+	b.z = 0;
+
+	//map = create_map();
+	while (i < MAP_HEIGHT)
+	{
+		j = 0;
+		while (j < MAP_WIDTH)
+		{
+			a.x = j;
+			a.y = i;
+			b.x = j + 1;
+			b.y = i;
+
+			// printf("j = %d\n", j);
+			// printf("i = %d\n", i);
+			//
+			// if (map[j][i])
+			// {
+			// 	printf("bite\n");
+			// 	a.y -= 1;
+			// }
+
+			draw_line_iso(env, a, b);
+			a.x = j;
+			a.y = i;
+			b.x = j;
+			b.y = i + 1;
+			draw_line_iso(env, a, b);
+			j++;
+		}
+		i++;
+	}
+
+}
+
+void	draw_tile(t_v2d pos)
+{
+
+
+}
 
 float	find_length(t_v2d p1, t_v2d p2)
 {
@@ -38,9 +90,13 @@ void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2)
 
 
 	a.x = (p1.x * 32) - (p1.y * 32);
-	a.y = (p1.y * 32) + (p1.x * 32);
+	a.y = (p1.y * 16) + (p1.x * 16);
 	b.x = (p2.x * 32) - (p2.y * 32);
-	b.y = (p2.y * 32) + (p2.x * 32);
+	b.y = (p2.y * 16) + (p2.x * 16);
+
+	b.y += p2.z;
+
+	printf("FUCK\n");
 
 	// p2.x -= 64;
 	// p1.y -= 32;

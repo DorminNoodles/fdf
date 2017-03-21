@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/21 21:10:48 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/21 23:10:43 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,23 +142,25 @@ int		quit(int keycode, void *param)
 	return (0);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-	t_ml *ml;
+	t_ml ml;
 	void *mlx;
 	void *win;
-	int x;
-	int y;
-
-	x = 50;
-	y = 50;
+	// int x;
+	// int y;
+	//
+	// x = 50;
+	// y = 50;
 	mlx = mlx_init();
 	win = mlx_new_window (mlx, SCREEN_WIDTH, SCREEN_SIZE_Y, WINDOW_TITLE);
 
-	ml->mlx = mlx;
-	ml->win = win;
-	ml->origin.x = SCREEN_WIDTH / 2;
-	ml->origin.y = 50;
+	//load_map(argv[1]);
+	ml.mlx = mlx;
+	ml.win = win;
+	ml.origin.x = SCREEN_WIDTH / 2;
+	ml.origin.y = 50;
+
 
 /*
 	while (y < 300)
@@ -174,7 +176,7 @@ int main(void)
 */
 	//mlx_expose_hook(win, &test, NULL);
 	//mlx_loop_hook(win, &loop_hook, ml);
-	mlx_key_hook(win, &quit, ml);
+	mlx_key_hook(win, &quit, &ml);
 	mlx_loop(mlx);
 
 	return (0);

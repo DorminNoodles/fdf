@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:40 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/21 21:13:35 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/21 22:52:12 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_v2d
 
 }t_v2d;
 
-typedef struct
+typedef struct s_ml
 {
 	void *mlx;
 	void *win;
@@ -34,9 +34,9 @@ typedef struct
 
 }t_ml;
 
-#define MAP_WIDTH 8
-#define MAP_HEIGHT 8
-#define SCREEN_WIDTH 800
+#define MAP_WIDTH 18
+#define MAP_HEIGHT 10
+#define SCREEN_WIDTH 1500
 #define SCREEN_SIZE_Y 800
 #define WINDOW_TITLE "FDF"
 
@@ -44,7 +44,7 @@ typedef struct
 void	draw_line(t_ml *env, t_v2d pa, t_v2d pb);
 void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2);
 void	draw_map(t_ml *env, int **map);
-int		**create_map(void);
+int		**create_map(int width, int height);
 
 
 #endif

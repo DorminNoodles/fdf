@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/21 21:31:06 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/21 23:10:45 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,24 @@ void	draw_map(t_ml *env, int **map)
 	a.z = 0;
 	b.z = 0;
 
-	map = create_map();
+	map = create_map(MAP_WIDTH, MAP_HEIGHT);
 
 
-	printf("test = %d\n", map[0][0]);
-	printf("test = %d\n", map[1][3]);
-	printf("test = %d\n", map[4][4]);
-	printf("test = %d\n", map[2][2]);
+	// printf("test = %d\n", map[0][0]);
+	// printf("test = %d\n", map[1][3]);
+	// printf("test = %d\n", map[4][4]);
+	// printf("test = %d\n", map[2][2]);
 
-	map[4][4] = 1;
-	map[0][0] = 1;
-	map[1][0] = 1;
-	map[2][0] = 1;
-	map[3][0] = 1;
-	map[4][0] = 1;
-	map[5][0] = 1;
-	map[6][0] = 1;
-	map[7][0] = 1;
-	map[8][0] = 1;
+	// map[4][4] = 1;
+	// map[0][0] = 1;
+	// map[1][0] = 1;
+	// map[2][0] = 1;
+	// map[3][0] = 1;
+	// map[4][0] = 1;
+	// map[5][0] = 1;
+	// map[6][0] = 1;
+	// map[7][0] = 1;
+	// map[8][0] = 1;
 
 	while (i <= MAP_HEIGHT)
 	{
@@ -59,7 +59,7 @@ void	draw_map(t_ml *env, int **map)
 
 			if (j < MAP_WIDTH)
 			{
-				b.z = map[j+1][i] * 32;
+				b.z = map[j + 1][i] * 32;
 				draw_line_iso(env, a, b);
 			}
 			a.x = j;
@@ -67,15 +67,17 @@ void	draw_map(t_ml *env, int **map)
 			b.x = j;
 			b.y = i + 1;
 
-			a.y = map[j][i] * 32;
+			a.z = map[j][i] * 32;
 
 			if (i < MAP_HEIGHT)
+			{
+				b.z = map[j][i + 1] * 32;
 				draw_line_iso(env, a, b);
+			}
 			j++;
 		}
 		i++;
 	}
-
 }
 
 void	draw_tile(t_v2d pos)

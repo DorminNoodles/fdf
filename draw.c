@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/21 21:03:56 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/21 21:31:06 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,26 @@ void	draw_map(t_ml *env, int **map)
 	a.z = 0;
 	b.z = 0;
 
-	//map = create_map();
-	while (i < MAP_HEIGHT)
+	map = create_map();
+
+
+	printf("test = %d\n", map[0][0]);
+	printf("test = %d\n", map[1][3]);
+	printf("test = %d\n", map[4][4]);
+	printf("test = %d\n", map[2][2]);
+
+	map[4][4] = 1;
+	map[0][0] = 1;
+	map[1][0] = 1;
+	map[2][0] = 1;
+	map[3][0] = 1;
+	map[4][0] = 1;
+	map[5][0] = 1;
+	map[6][0] = 1;
+	map[7][0] = 1;
+	map[8][0] = 1;
+
+	while (i <= MAP_HEIGHT)
 	{
 		j = 0;
 		while (j <= MAP_WIDTH)
@@ -37,23 +55,22 @@ void	draw_map(t_ml *env, int **map)
 			b.x = j + 1;
 			b.y = i;
 
-
-			// printf("j = %d\n", j);
-			// printf("i = %d\n", i);
-			//
-			// if (map[j][i])
-			// {
-			// 	printf("bite\n");
-			// 	a.y -= 1;
-			// }
+			a.z = map[j][i] * 32;
 
 			if (j < MAP_WIDTH)
+			{
+				b.z = map[j+1][i] * 32;
 				draw_line_iso(env, a, b);
+			}
 			a.x = j;
 			a.y = i;
 			b.x = j;
 			b.y = i + 1;
-			draw_line_iso(env, a, b);
+
+			a.y = map[j][i] * 32;
+
+			if (i < MAP_HEIGHT)
+				draw_line_iso(env, a, b);
 			j++;
 		}
 		i++;
@@ -96,7 +113,9 @@ void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2)
 	b.x = (p2.x * 32) - (p2.y * 32);
 	b.y = (p2.y * 16) + (p2.x * 16);
 
-	b.y += p2.z;
+	printf("draw_line iso z = %f\n", p1.z);
+	a.y -= p1.z;
+	b.y -= p2.z;
 
 	// p2.x -= 64;
 	// p1.y -= 32;

@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/21 23:10:45 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/22 19:15:44 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,18 @@ void	draw_map(t_ml *env, int **map)
 	a.z = 0;
 	b.z = 0;
 
-	map = create_map(MAP_WIDTH, MAP_HEIGHT);
+	//map = create_map(MAP_WIDTH, MAP_HEIGHT);
 
 
 	// printf("test = %d\n", map[0][0]);
 	// printf("test = %d\n", map[1][3]);
 	// printf("test = %d\n", map[4][4]);
+	// printf("test = %d\n", map[4][5]);
 	// printf("test = %d\n", map[2][2]);
 
-	// map[4][4] = 1;
+	map[4][4] = 1;
+	map[4][5] = 1;
+	map[4][6] = 1;
 	// map[0][0] = 1;
 	// map[1][0] = 1;
 	// map[2][0] = 1;
@@ -115,7 +118,7 @@ void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2)
 	b.x = (p2.x * 32) - (p2.y * 32);
 	b.y = (p2.y * 16) + (p2.x * 16);
 
-	printf("draw_line iso z = %f\n", p1.z);
+	//printf("draw_line iso z = %f\n", p1.z);
 	a.y -= p1.z;
 	b.y -= p2.z;
 

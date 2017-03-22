@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/21 23:10:43 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/22 19:12:14 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,23 +144,21 @@ int		quit(int keycode, void *param)
 
 int main(int argc, char **argv)
 {
-	t_ml ml;
+	t_ml dna;
 	void *mlx;
 	void *win;
-	// int x;
-	// int y;
-	//
-	// x = 50;
-	// y = 50;
+
 	mlx = mlx_init();
 	win = mlx_new_window (mlx, SCREEN_WIDTH, SCREEN_SIZE_Y, WINDOW_TITLE);
 
 	//load_map(argv[1]);
-	ml.mlx = mlx;
-	ml.win = win;
-	ml.origin.x = SCREEN_WIDTH / 2;
-	ml.origin.y = 50;
+	dna.mlx = mlx;
+	dna.win = win;
+	dna.origin.x = SCREEN_WIDTH / 2;
+	dna.origin.y = 50;
 
+	if (argc == 2)
+		load_map(argv[1], &dna);
 
 /*
 	while (y < 300)
@@ -176,7 +174,7 @@ int main(int argc, char **argv)
 */
 	//mlx_expose_hook(win, &test, NULL);
 	//mlx_loop_hook(win, &loop_hook, ml);
-	mlx_key_hook(win, &quit, &ml);
+	mlx_key_hook(win, &quit, &dna);
 	mlx_loop(mlx);
 
 	return (0);

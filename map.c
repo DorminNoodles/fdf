@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 21:45:14 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/22 19:44:20 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/23 21:24:32 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,78 @@ void	fill_map(char *buff, t_ml *dna)
 {
 	int i;
 	int j;
+	int x;
+	int y;
 	char	**z_tab;
 
 	i = 0;
 	j = 0;
 
+	x =0;
+	y = 0;
+
 	z_tab = split_map(buff, dna);
+
+	printf("REDRUM *%s*\n", z_tab[0]);
+	printf("REDRUM *%s*\n", z_tab[1]);
+	printf("REDRUM *%s*\n", z_tab[2]);
+	printf("REDRUM *%s*\n", z_tab[5]);
+	printf("start\n");
+	printf("%d\n", dna->map_height * dna->map_width);
+	int fuck = 0;
+	while (i < dna->map_height * dna->map_width)
+	{
+		printf("%s  ", *(z_tab + i));
+		i++;
+		fuck++;
+		if (fuck == 19)
+		{
+			printf("\n");
+			fuck = 0;
+		}
+	}
+	printf("exit\n");
+	printf("test\n");
+	printf("map height => %d\n", dna->map_height);
+	printf("map width => %d\n", dna->map_width);
+
+	i = 0;
+
+	printf("map test de merde %d\n", dna->map[2][1]);
+
+	i = 0;
+	y = 0;
+	while (y < dna->map_height)
+	{
+		x = 0;
+		while (x < dna->map_width)
+		{
+			// printf("map test all %d\n", dna->map[x][y]);
+			dna->map[x][y] = ft_atoi(*z_tab++);
+			x++;
+		}
+		//printf("connard\n");
+		y++;
+	}
+
+	printf("exit\n");
+/*
 	while (i < dna->map_height)
 	{
+		j = 0;
+		printf("i = %d\n", i);
 		while (j < dna->map_width)
 		{
-			dna->map[i][j] = 0;
+			printf("j = %d\n", j);
+			printf("atoi => %d\n", ft_atoi(*z_tab++));
+			dna->map[i][j] = ft_atoi(*z_tab++);
 			j++;
 		}
 		i++;
 	}
-
+*/
+	printf("test map = %d\n", dna->map[1][0]);
+	printf("test map = %d\n", dna->map[0][1]);
 }
 
 int		**create_map(t_ml *dna)

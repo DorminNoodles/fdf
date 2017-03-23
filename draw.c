@@ -6,80 +6,92 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/22 19:15:44 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/23 21:38:00 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "mlx.h"
 #include "fdf.h"
 
-void	draw_map(t_ml *env, int **map)
+t_v2d	v3d(float x, float y, float z)
 {
-	int i;
-	int j;
+	t_v2d v;
+
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	return (v);
+}
+
+void	draw_map(t_ml *dna)
+{
+	int x;
+	int y;
+	int z;
 
 	t_v2d a;
 	t_v2d b;
 
 
-	i = 0;
+	x = 0;
+	y = 0;
+	z = 0;
 	a.z = 0;
 	b.z = 0;
 
-	//map = create_map(MAP_WIDTH, MAP_HEIGHT);
+	printf("debug => %d\n", dna->map[0][1]);
+	printf("debug => %d\n", dna->map[1][0]);
 
-
-	// printf("test = %d\n", map[0][0]);
-	// printf("test = %d\n", map[1][3]);
-	// printf("test = %d\n", map[4][4]);
-	// printf("test = %d\n", map[4][5]);
-	// printf("test = %d\n", map[2][2]);
-
-	map[4][4] = 1;
-	map[4][5] = 1;
-	map[4][6] = 1;
-	// map[0][0] = 1;
-	// map[1][0] = 1;
-	// map[2][0] = 1;
-	// map[3][0] = 1;
-	// map[4][0] = 1;
-	// map[5][0] = 1;
-	// map[6][0] = 1;
-	// map[7][0] = 1;
-	// map[8][0] = 1;
-
-	while (i <= MAP_HEIGHT)
+	while (x < dna->map_width)
 	{
-		j = 0;
-		while (j <= MAP_WIDTH)
+		y = 0;
+		while (y < dna->map_height)
 		{
-			a.x = j;
-			a.y = i;
-			b.x = j + 1;
-			b.y = i;
-
-			a.z = map[j][i] * 32;
-
-			if (j < MAP_WIDTH)
+			a.z = dna->map[x][y] * 2;
+			b.z = dna->map[x + 1][y] * 2;
+			//z = dna->map[x + 1][y] * 12;
+			printf("z = %d\n", z);
+			if (x < dna->map_width - 1)
 			{
-				b.z = map[j + 1][i] * 32;
-				draw_line_iso(env, a, b);
+				draw_line_iso(dna, v3d(x,y,a.z), v3d(x + 1,y,b.z));
 			}
-			a.x = j;
-			a.y = i;
-			b.x = j;
-			b.y = i + 1;
 
-			a.z = map[j][i] * 32;
+			a.z = dna->map[x][y] * 2;
+			b.z = dna->map[x][y + 1] * 2;
 
-			if (i < MAP_HEIGHT)
+			if (y < dna->map_height - 1)
 			{
-				b.z = map[j][i + 1] * 32;
-				draw_line_iso(env, a, b);
+				draw_line_iso(dna, v3d(x,y,a.z), v3d(x,y + 1,b.z));
 			}
-			j++;
+
+
+			//draw_line_iso(dna, v3d(x,y,z), v3d(x,y + 1,z));
+			// a.x = j;
+			// a.y = i;
+			// b.x = j + 1;
+			// b.y = i;
+			//
+			// a.z = dna->map[j][i] * 32;
+			// if (j < dna->map_width)
+			// {
+			// 	b.z = dna->map[j + 1][i] * 32;
+			// 	draw_line_iso(dna, a, b);
+			// }
+			// a.x = j;
+			// a.y = i;
+			// b.x = j;
+			// b.y = i + 1;
+			//
+			// a.z = dna->map[j][i] * 32;
+			//
+			// if (i < dna->map_height)
+			// {
+			// 	b.z = dna->map[j][i + 1] * 32;
+			// 	draw_line_iso(dna, a, b);
+			// }
+			y++;
 		}
-		i++;
+		x++;
 	}
 }
 
@@ -112,19 +124,13 @@ void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2)
 	t_v2d a;
 	t_v2d b;
 
-
 	a.x = (p1.x * 32) - (p1.y * 32);
 	a.y = (p1.y * 16) + (p1.x * 16);
 	b.x = (p2.x * 32) - (p2.y * 32);
 	b.y = (p2.y * 16) + (p2.x * 16);
 
-	//printf("draw_line iso z = %f\n", p1.z);
 	a.y -= p1.z;
 	b.y -= p2.z;
-
-	// p2.x -= 64;
-	// p1.y -= 32;
-	// p2.y += 64;
 
 	draw_line(env, a, b);
 }

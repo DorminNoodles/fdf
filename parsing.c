@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 21:43:28 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/22 19:45:05 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/23 18:00:32 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,47 @@
 char		**split_map(char *buff, t_ml *dna)
 {
 	char **tb;
+	char *tmp;
 	int nb_vect;
+	int nb_digit;
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
+	// nb_digit = 0;
+	tmp = buff;
 	nb_vect = dna->map_width * dna->map_height;
 
+	// printf("nb_vect = %d\n", nb_vect);
 	tb = (char**)ft_memalloc(sizeof(char*) * nb_vect);
-
-	while (buff[i] != '\0')
+	while (*tmp)
 	{
-		j = 0;
-		while (ft_isdigit(buff[i]))
+		nb_digit = 0;
+		while (ft_isdigit(*tmp))
 		{
+			tmp++;
+			nb_digit++;
+		}
+		// printf("nb_digit = %d\n", nb_digit);
+		// printf("tmp == %d\n", *tmp);
+		if (nb_digit)
+		{
+			tb[j] = (char*)ft_memalloc(sizeof(char) * (nb_digit + 1));
+			i = 0;
+			while (i < nb_digit)
+			{
+				tb[j][i] = *(tmp - (nb_digit - i));
+				i++;
+			}
 			j++;
-			i++;
 		}
-		if (j != 0)
-		{
-			printf("create_words\n");
-		}
-		i++;
+		tmp++;
 	}
+	// printf("test = %s\n", tb[6]);
 
-	return (NULL);
+	//printf("TINTIN\n");
+	return (tb);
 }
 
 void	check_sign(char *buff)

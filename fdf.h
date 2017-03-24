@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:40 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/23 15:51:42 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/24 15:57:13 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	load_map(char *filename, t_ml *dna);
 void	map_size(t_ml *dna, char *buff);
 void	fill_map(char *buff, t_ml *dna);
 char	**split_map(char *buff, t_ml *dna);
+int		color_z(float z);
 
 
 #endif

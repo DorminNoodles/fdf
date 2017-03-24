@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/23 21:38:00 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/24 18:50:08 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,48 +47,22 @@ void	draw_map(t_ml *dna)
 		y = 0;
 		while (y < dna->map_height)
 		{
-			a.z = dna->map[x][y] * 2;
-			b.z = dna->map[x + 1][y] * 2;
+			a.z = dna->map[x][y];
+			b.z = dna->map[x + 1][y];
 			//z = dna->map[x + 1][y] * 12;
-			printf("z = %d\n", z);
+			//printf("z = %d\n", z);
 			if (x < dna->map_width - 1)
 			{
 				draw_line_iso(dna, v3d(x,y,a.z), v3d(x + 1,y,b.z));
 			}
 
-			a.z = dna->map[x][y] * 2;
-			b.z = dna->map[x][y + 1] * 2;
+			a.z = dna->map[x][y];
+			b.z = dna->map[x][y + 1];
 
 			if (y < dna->map_height - 1)
 			{
 				draw_line_iso(dna, v3d(x,y,a.z), v3d(x,y + 1,b.z));
 			}
-
-
-			//draw_line_iso(dna, v3d(x,y,z), v3d(x,y + 1,z));
-			// a.x = j;
-			// a.y = i;
-			// b.x = j + 1;
-			// b.y = i;
-			//
-			// a.z = dna->map[j][i] * 32;
-			// if (j < dna->map_width)
-			// {
-			// 	b.z = dna->map[j + 1][i] * 32;
-			// 	draw_line_iso(dna, a, b);
-			// }
-			// a.x = j;
-			// a.y = i;
-			// b.x = j;
-			// b.y = i + 1;
-			//
-			// a.z = dna->map[j][i] * 32;
-			//
-			// if (i < dna->map_height)
-			// {
-			// 	b.z = dna->map[j][i + 1] * 32;
-			// 	draw_line_iso(dna, a, b);
-			// }
 			y++;
 		}
 		x++;
@@ -129,8 +103,13 @@ void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2)
 	b.x = (p2.x * 32) - (p2.y * 32);
 	b.y = (p2.y * 16) + (p2.x * 16);
 
-	a.y -= p1.z;
-	b.y -= p2.z;
+	a.y -= p1.z * 5;
+	b.y -= p2.z * 5;
+
+	// printf("z => %f\n", p1.z);
+
+	a.z = p1.z;
+	b.z = p2.z;
 
 	draw_line(env, a, b);
 }
@@ -140,6 +119,7 @@ void	draw_line(t_ml *env, t_v2d p1, t_v2d p2)
 	int i;
 	float deltax;
 	float deltay;
+	float deltaz;
 	float length;
 
 	i = 0;
@@ -150,14 +130,21 @@ void	draw_line(t_ml *env, t_v2d p1, t_v2d p2)
 	length = find_length(p1, p2);
 	deltax = (p2.x - p1.x) / length;
 	deltay = (p2.y - p1.y) / length;
+	deltaz = (p2.z - p1.z) / length;
+
+	// printf("deltaz => %f\n", deltaz);
+
+	//printf("Z COLOR => %f\n", deltaz);
 	// printf("length = %f\n", length);
 	// printf("deltax = %f\n", deltax);
 	// printf("deltay = %f\n", deltay);
 	while (i <= length)
 	{
-		mlx_pixel_put(env->mlx, env->win, p1.x, p1.y, 0x00FFFFFF);
+		mlx_pixel_put(env->mlx, env->win, p1.x, p1.y, color_z(p1.z));
 		p1.x += deltax;
 		p1.y += deltay;
+		p1.z += deltaz;
 		i++;
 	}
+	//printf("p1.z => %f\n", p1.z);
 }

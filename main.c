@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/23 18:01:10 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/24 18:50:07 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ int main(int argc, char **argv)
 
 	if (argc == 2)
 		load_map(argv[1], &dna);
+	else
+	{
+		ft_putstr("Out !\n");
+		exit(EXIT_FAILURE);
+	}
+
+	printf("TEST => %f\n", (10 - 5));
 
 /*
 	while (y < 300)

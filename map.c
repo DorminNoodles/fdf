@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 21:45:14 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/23 21:24:32 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/24 15:57:15 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,30 +82,14 @@ void	fill_map(char *buff, t_ml *dna)
 		x = 0;
 		while (x < dna->map_width)
 		{
-			// printf("map test all %d\n", dna->map[x][y]);
 			dna->map[x][y] = ft_atoi(*z_tab++);
 			x++;
 		}
-		//printf("connard\n");
 		y++;
 	}
 
 	printf("exit\n");
-/*
-	while (i < dna->map_height)
-	{
-		j = 0;
-		printf("i = %d\n", i);
-		while (j < dna->map_width)
-		{
-			printf("j = %d\n", j);
-			printf("atoi => %d\n", ft_atoi(*z_tab++));
-			dna->map[i][j] = ft_atoi(*z_tab++);
-			j++;
-		}
-		i++;
-	}
-*/
+
 	printf("test map = %d\n", dna->map[1][0]);
 	printf("test map = %d\n", dna->map[0][1]);
 }

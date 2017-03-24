@@ -2,7 +2,8 @@ NAME = fdf
 SRCS_NAME =		main.c					\
 				draw.c					\
 				map.c					\
-				parsing.c
+				parsing.c				\
+				color.c
 
 OBJS = $(SRCS_NAME:.c=.o)
 

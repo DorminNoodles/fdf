@@ -6,57 +6,67 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/21 13:16:03 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/24 18:50:08 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "mlx.h"
 #include "fdf.h"
 
-void	draw_map(t_ml *env, int **map)
+t_v2d	v3d(float x, float y, float z)
 {
-	int i;
-	int j;
+	t_v2d v;
+
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	return (v);
+}
+
+void	draw_map(t_ml *dna)
+{
+	int x;
+	int y;
+	int z;
 
 	t_v2d a;
 	t_v2d b;
 
 
-	i = 0;
+	x = 0;
+	y = 0;
+	z = 0;
 	a.z = 0;
 	b.z = 0;
 
-	//map = create_map();
-	while (i < MAP_HEIGHT)
+	printf("debug => %d\n", dna->map[0][1]);
+	printf("debug => %d\n", dna->map[1][0]);
+
+	while (x < dna->map_width)
 	{
-		j = 0;
-		while (j < MAP_WIDTH)
+		y = 0;
+		while (y < dna->map_height)
 		{
-			a.x = j;
-			a.y = i;
-			b.x = j + 1;
-			b.y = i;
+			a.z = dna->map[x][y];
+			b.z = dna->map[x + 1][y];
+			//z = dna->map[x + 1][y] * 12;
+			//printf("z = %d\n", z);
+			if (x < dna->map_width - 1)
+			{
+				draw_line_iso(dna, v3d(x,y,a.z), v3d(x + 1,y,b.z));
+			}
 
-			// printf("j = %d\n", j);
-			// printf("i = %d\n", i);
-			//
-			// if (map[j][i])
-			// {
-			// 	printf("bite\n");
-			// 	a.y -= 1;
-			// }
+			a.z = dna->map[x][y];
+			b.z = dna->map[x][y + 1];
 
-			draw_line_iso(env, a, b);
-			a.x = j;
-			a.y = i;
-			b.x = j;
-			b.y = i + 1;
-			draw_line_iso(env, a, b);
-			j++;
+			if (y < dna->map_height - 1)
+			{
+				draw_line_iso(dna, v3d(x,y,a.z), v3d(x,y + 1,b.z));
+			}
+			y++;
 		}
-		i++;
+		x++;
 	}
-
 }
 
 void	draw_tile(t_v2d pos)
@@ -88,17 +98,18 @@ void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2)
 	t_v2d a;
 	t_v2d b;
 
-
 	a.x = (p1.x * 32) - (p1.y * 32);
 	a.y = (p1.y * 16) + (p1.x * 16);
 	b.x = (p2.x * 32) - (p2.y * 32);
 	b.y = (p2.y * 16) + (p2.x * 16);
 
-	b.y += p2.z;
+	a.y -= p1.z * 5;
+	b.y -= p2.z * 5;
 
-	// p2.x -= 64;
-	// p1.y -= 32;
-	// p2.y += 64;
+	// printf("z => %f\n", p1.z);
+
+	a.z = p1.z;
+	b.z = p2.z;
 
 	draw_line(env, a, b);
 }
@@ -108,6 +119,7 @@ void	draw_line(t_ml *env, t_v2d p1, t_v2d p2)
 	int i;
 	float deltax;
 	float deltay;
+	float deltaz;
 	float length;
 
 	i = 0;
@@ -118,14 +130,21 @@ void	draw_line(t_ml *env, t_v2d p1, t_v2d p2)
 	length = find_length(p1, p2);
 	deltax = (p2.x - p1.x) / length;
 	deltay = (p2.y - p1.y) / length;
+	deltaz = (p2.z - p1.z) / length;
+
+	// printf("deltaz => %f\n", deltaz);
+
+	//printf("Z COLOR => %f\n", deltaz);
 	// printf("length = %f\n", length);
 	// printf("deltax = %f\n", deltax);
 	// printf("deltay = %f\n", deltay);
 	while (i <= length)
 	{
-		mlx_pixel_put(env->mlx, env->win, p1.x, p1.y, 0x00FFFFFF);
+		mlx_pixel_put(env->mlx, env->win, p1.x, p1.y, color_z(p1.z));
 		p1.x += deltax;
 		p1.y += deltay;
+		p1.z += deltaz;
 		i++;
 	}
+	//printf("p1.z => %f\n", p1.z);
 }

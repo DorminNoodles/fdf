@@ -6,11 +6,12 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/24 18:50:08 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/26 00:01:10 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "mlx.h"
+#include <math.h>
 #include "fdf.h"
 
 t_v2d	v3d(float x, float y, float z)
@@ -21,6 +22,34 @@ t_v2d	v3d(float x, float y, float z)
 	v.y = y;
 	v.z = z;
 	return (v);
+}
+
+void	draw_square(t_ml *dna, t_v2d pos, t_v2d size, int color)
+{
+	int x;
+	int y;
+	int sizex;
+	int sizey;
+
+
+	x = (int)pos.x;
+	y = (int)pos.y;
+	sizex = (int)size.x;
+	sizey = (int)size.y;
+	// printf("%d\n", (int)size.x);
+
+	while (x - pos.x < sizex)
+	{
+			// printf("bite x = %d\n", x);
+		y = 0;
+		while (y - pos.y < sizey)
+		{
+			// printf("bite y = %d\n", y);
+			mlx_pixel_put(dna->mlx, dna->win, x, y, color);
+			y++;
+		}
+		x++;
+	}
 }
 
 void	draw_map(t_ml *dna)
@@ -38,9 +67,6 @@ void	draw_map(t_ml *dna)
 	z = 0;
 	a.z = 0;
 	b.z = 0;
-
-	printf("debug => %d\n", dna->map[0][1]);
-	printf("debug => %d\n", dna->map[1][0]);
 
 	while (x < dna->map_width)
 	{
@@ -75,7 +101,7 @@ void	draw_tile(t_v2d pos)
 
 }
 
-float	find_length(t_v2d p1, t_v2d p2)
+float	max_length(t_v2d p1, t_v2d p2)
 {
 	float	lx;
 	float	ly;
@@ -114,7 +140,7 @@ void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2)
 	draw_line(env, a, b);
 }
 
-void	draw_line(t_ml *env, t_v2d p1, t_v2d p2)
+void	draw_line(t_ml *dna, t_v2d p1, t_v2d p2)
 {
 	int i;
 	float deltax;
@@ -123,27 +149,29 @@ void	draw_line(t_ml *env, t_v2d p1, t_v2d p2)
 	float length;
 
 	i = 0;
-	p1.x += 0.5 + env->origin.x;
-	p1.y += 0.5 + env->origin.y;
-	p2.x += env->origin.x;
-	p2.y += env->origin.y;
-	length = find_length(p1, p2);
+	p1.x += 0.5 + dna->origin.x + dna->posx;
+	p1.y += 0.5 + dna->origin.y + dna->posy;
+	p2.x += dna->origin.x + dna->posx;
+	p2.y += dna->origin.y + dna->posy;
+	length = max_length(p1, p2);
 	deltax = (p2.x - p1.x) / length;
 	deltay = (p2.y - p1.y) / length;
+
+	float len_z = (dna->highest_z - dna->lowest_z);
 	deltaz = (p2.z - p1.z) / length;
 
-	// printf("deltaz => %f\n", deltaz);
-
-	//printf("Z COLOR => %f\n", deltaz);
-	// printf("length = %f\n", length);
-	// printf("deltax = %f\n", deltax);
-	// printf("deltay = %f\n", deltay);
+	// printf("interval_z => %f\n", dna->highest_z - dna->lowest_z);
+	//printf("p1.z 0 or 10 => %f\n", p1.z);
 	while (i <= length)
 	{
-		mlx_pixel_put(env->mlx, env->win, p1.x, p1.y, color_z(p1.z));
+		if (!dna->blank)
+			mlx_pixel_put(dna->mlx, dna->win, p1.x, p1.y, color_z(p1.z, len_z));
+		else
+			mlx_pixel_put(dna->mlx, dna->win, p1.x, p1.y, 0x00000000);
 		p1.x += deltax;
 		p1.y += deltay;
 		p1.z += deltaz;
+		// printf("p1.z => %f\n", p1.z);
 		i++;
 	}
 	//printf("p1.z => %f\n", p1.z);

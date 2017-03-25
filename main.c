@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/25 15:21:12 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/26 00:09:13 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,55 @@ int		loop_hook(void *param)
 
 
 
-int		quit(int keycode, void *dna)
+int		quit(int keycode, void *ptr)
 {
-	t_v2d a;
-	t_v2d b;
-	t_v2d c;
-	t_v2d d;
-	t_v2d e;
-	t_v2d f;
-	t_v2d g;
-	t_v2d h;
-	t_v2d i;
-	t_v2d j;
-	t_v2d k;
-	t_v2d l;
-	t_ml *ptr;
+	t_ml *dna;
 	int x;
 	int y;
+	t_v2d p1;
+	t_v2d size;
 
 	x = 0;
 	y = 0;
-	ptr = (t_ml*)dna;
+	dna = (t_ml*)ptr;
 
 	printf("%d\n", keycode);
 
 	if (keycode == 12)
 	{
+		dna->blank = 0;
+		draw_map(dna);
+	}
+	if (keycode == 123)
+	{
+		dna->blank = 1;
+		draw_map(dna);
+		dna->posx -= 10;
+		dna->blank = 0;
+		draw_map(dna);
+	}
+	if (keycode == 124)
+	{
+		dna->blank = 1;
+		draw_map(dna);
+		dna->posx += 10;
+		dna->blank = 0;
+		draw_map(dna);
+	}
+	if (keycode == 126)
+	{
+		dna->blank = 1;
+		draw_map(dna);
+		dna->posy -= 10;
+		dna->blank = 0;
+		draw_map(dna);
+	}
+	if (keycode == 125)
+	{
+		dna->blank = 1;
+		draw_map(dna);
+		dna->posy += 10;
+		dna->blank = 0;
 		draw_map(dna);
 	}
 	if (keycode == 53)
@@ -81,13 +104,15 @@ int main(int argc, char **argv)
 	void *win;
 
 	mlx = mlx_init();
-	win = mlx_new_window (mlx, SCREEN_WIDTH, SCREEN_SIZE_Y, WINDOW_TITLE);
+	win = mlx_new_window (mlx, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
 
 	//load_map(argv[1]);
 	dna.mlx = mlx;
 	dna.win = win;
 	dna.origin.x = SCREEN_WIDTH / 2;
 	dna.origin.y = 50;
+	dna.posx = 0;
+	dna.posy = 0;
 
 	if (argc == 2)
 		load_map(argv[1], &dna);
@@ -98,19 +123,6 @@ int main(int argc, char **argv)
 	}
 
 	printf("TEST => %f\n", (10 - 5));
-
-/*
-	while (y < 300)
-	{
-		x = 50;
-		while (x < 300)
-		{
-			mlx_pixel_put(mlx, win, x, y, 0x00FFFFFF);
-			x++;
-		}
-		y++;
-	}
-*/
 	//mlx_expose_hook(win, &test, NULL);
 	//mlx_loop_hook(win, &loop_hook, ml);
 	mlx_key_hook(win, &quit, &dna);

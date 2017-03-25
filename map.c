@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 21:45:14 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/24 15:57:15 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/25 22:38:07 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,10 @@ void	fill_map(char *buff, t_ml *dna)
 
 	i = 0;
 	j = 0;
-
-	x =0;
+	x = 0;
 	y = 0;
 
 	z_tab = split_map(buff, dna);
-
-	printf("REDRUM *%s*\n", z_tab[0]);
-	printf("REDRUM *%s*\n", z_tab[1]);
-	printf("REDRUM *%s*\n", z_tab[2]);
-	printf("REDRUM *%s*\n", z_tab[5]);
 	printf("start\n");
 	printf("%d\n", dna->map_height * dna->map_width);
 	int fuck = 0;
@@ -75,6 +69,8 @@ void	fill_map(char *buff, t_ml *dna)
 
 	printf("map test de merde %d\n", dna->map[2][1]);
 
+	dna->lowest_z = 0;
+	dna->highest_z = 0;
 	i = 0;
 	y = 0;
 	while (y < dna->map_height)
@@ -83,13 +79,15 @@ void	fill_map(char *buff, t_ml *dna)
 		while (x < dna->map_width)
 		{
 			dna->map[x][y] = ft_atoi(*z_tab++);
+			if (dna->lowest_z > dna->map[x][y])
+				dna->lowest_z = dna->map[x][y];
+			if (dna->highest_z < dna->map[x][y])
+				dna->highest_z = dna->map[x][y];
 			x++;
 		}
 		y++;
 	}
-
 	printf("exit\n");
-
 	printf("test map = %d\n", dna->map[1][0]);
 	printf("test map = %d\n", dna->map[0][1]);
 }

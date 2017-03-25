@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:40 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/24 15:57:13 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/26 00:01:35 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,18 @@ typedef struct s_ml
 	int map_width;
 	int map_height;
 	t_v2d origin;
+	float lowest_z;
+	float highest_z;
+	int blank;
+	int posx;
+	int posy;
 
 }t_ml;
 
 #define MAP_WIDTH 18
 #define MAP_HEIGHT 10
 #define SCREEN_WIDTH 1500
-#define SCREEN_SIZE_Y 800
+#define SCREEN_HEIGHT 800
 #define WINDOW_TITLE "FDF"
 
 
@@ -54,7 +59,9 @@ void	load_map(char *filename, t_ml *dna);
 void	map_size(t_ml *dna, char *buff);
 void	fill_map(char *buff, t_ml *dna);
 char	**split_map(char *buff, t_ml *dna);
-int		color_z(float z);
+int		color_z(float z, float length_z);
+void	draw_square(t_ml *dna, t_v2d pos, t_v2d size, int color);
+t_v2d	v3d(float x, float y, float z);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 21:43:28 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/23 18:00:32 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/26 20:09:51 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,31 @@
 #include <fcntl.h>
 #include "fdf.h"
 
+void	split_free(char **tb)
+{
+
+}
+
 char		**split_map(char *buff, t_ml *dna)
 {
 	char **tb;
 	char *tmp;
-	int nb_vect;
 	int nb_digit;
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	// nb_digit = 0;
 	tmp = buff;
-	nb_vect = dna->map_width * dna->map_height;
-
-	// printf("nb_vect = %d\n", nb_vect);
-	tb = (char**)ft_memalloc(sizeof(char*) * nb_vect);
+	tb = (char**)ft_memalloc(sizeof(char*) * dna->map_w * dna->map_h);
 	while (*tmp)
 	{
 		nb_digit = 0;
-		while (ft_isdigit(*tmp))
+		while (ft_isdigit(*tmp) || *tmp == '-')
 		{
 			tmp++;
 			nb_digit++;
 		}
-		// printf("nb_digit = %d\n", nb_digit);
-		// printf("tmp == %d\n", *tmp);
 		if (nb_digit)
 		{
 			tb[j] = (char*)ft_memalloc(sizeof(char) * (nb_digit + 1));
@@ -55,9 +53,6 @@ char		**split_map(char *buff, t_ml *dna)
 		}
 		tmp++;
 	}
-	// printf("test = %s\n", tb[6]);
-
-	//printf("TINTIN\n");
 	return (tb);
 }
 
@@ -68,8 +63,7 @@ void	check_sign(char *buff)
 	i = 0;
 	while (buff[i])
 	{
-		//printf("HERE\n");
-		if (buff[i] != '\n' && !ft_isdigit(buff[i]) && buff[i] != ' ')
+		if (!ft_strchr(SIGN, buff[i]) && !ft_isdigit(buff[i]))
 		{
 			ft_putstr("File Sign Error\n");
 			exit (EXIT_FAILURE);
@@ -97,7 +91,6 @@ void	check_layout(char *buff)
 	j = 0;
 	while (buff[i])
 	{
-		// printf("boucle\n");
 		if (ft_isdigit(buff[i]) && (buff[i + 1] == ' ' || buff[i + 1] == '\n'))
 			j++;
 		if (buff[i] == '\n')
@@ -135,9 +128,10 @@ void		load_map(char *filename, t_ml *dna)
 
 	printf("check_sign : OK\n");
 	map_size(dna, buff);
-	dna->map = create_map(dna);
-	fill_map(buff, dna);
+	// dna->map = create_map(dna);
+	create_map2(dna, buff);
+	//fill_map(buff, dna);
 	printf("ta mere la flute\n");
-	//fill_map(dna, buff);
+	printf("map => %d\n", dna->map[2][2]);
 
 }

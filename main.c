@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/26 00:09:13 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/26 16:41:07 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,48 @@ int		quit(int keycode, void *ptr)
 		dna->blank = 0;
 		draw_map(dna);
 	}
+	if (keycode == 116)
+	{
+		dna->blank = 1;
+		draw_map(dna);
+		dna->elevation += 0.4;
+		dna->blank = 0;
+		draw_map(dna);
+	}
+	if (keycode == 121)
+	{
+		dna->blank = 1;
+		draw_map(dna);
+		dna->elevation -= 0.4;
+		dna->blank = 0;
+		draw_map(dna);
+	}
+	if (keycode == 24 || keycode == 69)
+	{
+		dna->blank = 1;
+		draw_map(dna);
+		dna->scale += 0.02;
+		dna->blank = 0;
+		draw_map(dna);
+	}
+	if (keycode == 27 || keycode == 78)
+	{
+		dna->blank = 1;
+		draw_map(dna);
+		dna->scale -= 0.02;
+		dna->blank = 0;
+		draw_map(dna);
+	}
+
+	if (keycode == 91)
+	{
+		dna->blank = 1;
+		draw_map(dna);
+		dna->rot += 0.2;
+		dna->blank = 0;
+		draw_map(dna);
+	}
+
 	if (keycode == 53)
 		exit(EXIT_SUCCESS);
 
@@ -106,13 +148,15 @@ int main(int argc, char **argv)
 	mlx = mlx_init();
 	win = mlx_new_window (mlx, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
 
-	//load_map(argv[1]);
 	dna.mlx = mlx;
 	dna.win = win;
 	dna.origin.x = SCREEN_WIDTH / 2;
 	dna.origin.y = 50;
 	dna.posx = 0;
 	dna.posy = 0;
+	dna.elevation = 1;
+	dna.scale = 1.0;
+	dna.rot = 1.0;
 
 	if (argc == 2)
 		load_map(argv[1], &dna);
@@ -121,8 +165,8 @@ int main(int argc, char **argv)
 		ft_putstr("Out !\n");
 		exit(EXIT_FAILURE);
 	}
-
-	printf("TEST => %f\n", (10 - 5));
+	// printf("Test\n");
+	// printf("TEST => %f\n", (10 - 5));
 	//mlx_expose_hook(win, &test, NULL);
 	//mlx_loop_hook(win, &loop_hook, ml);
 	mlx_key_hook(win, &quit, &dna);

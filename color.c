@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:48:07 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/25 23:46:25 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/26 16:38:47 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		color_z(float z, float length_z)
 	green = 255 - ((int)(factor * z));
 	blue = (int)(factor * z);
 
+	//printf("z => %f\n", z);
 	//if(green != 0 && green != 255)
 	// printf("green => %d\n", green);
 

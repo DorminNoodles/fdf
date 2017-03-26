@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:40 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/26 00:01:35 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/26 18:00:52 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ typedef struct s_ml
 	void *mlx;
 	void *win;
 	int **map;
-	int map_width;
-	int map_height;
+	int map_w;
+	int map_h;
 	t_v2d origin;
-	float lowest_z;
-	float highest_z;
+	float min_z;
+	float max_z;
 	int blank;
 	int posx;
 	int posy;
-
+	float elevation;
+	float scale;
+	float rot;
 }t_ml;
 
 #define MAP_WIDTH 18
@@ -49,6 +51,7 @@ typedef struct s_ml
 #define SCREEN_WIDTH 1500
 #define SCREEN_HEIGHT 800
 #define WINDOW_TITLE "FDF"
+#define SIGN " -\n"
 
 
 void	draw_line(t_ml *env, t_v2d pa, t_v2d pb);
@@ -62,6 +65,6 @@ char	**split_map(char *buff, t_ml *dna);
 int		color_z(float z, float length_z);
 void	draw_square(t_ml *dna, t_v2d pos, t_v2d size, int color);
 t_v2d	v3d(float x, float y, float z);
-
+void	create_map2(t_ml *dna, char *buff);
 
 #endif

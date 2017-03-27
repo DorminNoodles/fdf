@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/26 16:44:05 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/27 03:52:17 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,12 @@ void	draw_map(t_ml *dna)
 			{
 				draw_line_iso(dna, v3d(x,y,a.z), v3d(x,y + 1,b.z));
 			}
+			printf("0 ");
 			y++;
+
+			//printf("%d ", dna->map[y][x]);
 		}
+		printf("\n");
 		x++;
 	}
 }

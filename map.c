@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 21:45:14 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/26 20:23:06 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/27 03:51:03 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ void	create_map2(t_ml *dna, char *buff)
 	printf("%c\n", buff[3]);
 	ft_bzero(hot_plate, 20);
 	dna->map = (int**)malloc(sizeof(int*) * dna->map_w + 1);
+
+	printf("MAP_W => %d\n", dna->map_w);
 	while (i < dna->map_w + 1)
 	{
 		dna->map[i] = (int*)malloc(sizeof(int) * dna->map_h + 1);
@@ -134,7 +136,7 @@ void	create_map2(t_ml *dna, char *buff)
 	while (i < dna->map_h + 1)
 	{
 		j = 0;
-		while (j < dna->map_w + 1)
+		while (j < dna->map_w)
 		{
 			k = 0;
 			while (*buff)
@@ -146,7 +148,8 @@ void	create_map2(t_ml *dna, char *buff)
 					k++;
 					hot_plate[k] = *buff;
 					dna->map[j][i] = ft_atoi(hot_plate);
-					printf("ATOI =>%d\n", ft_atoi(hot_plate));
+					// printf("ATOI =>%d\n", ft_atoi(hot_plate));
+					// printf("%d ", ft_atoi(hot_plate));
 					break;
 				}
 				buff++;
@@ -157,6 +160,7 @@ void	create_map2(t_ml *dna, char *buff)
 			ft_bzero(hot_plate, 20);
 			j++;
 		}
+		printf("\n");
 		i++;
 	}
 }

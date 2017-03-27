@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:48:07 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/27 04:02:46 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/27 13:19:47 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,19 @@ int		color_z(float z, float length_z)
 	int green;
 	int blue;
 
-	// printf("deltaz => %f\n", deltaz);
-	factor = 255 / length_z;
+	//printf("deltaz => %f\n", deltaz);
+	if (length_z != 0)
+		factor = 255 / length_z;
+	else
+		factor = 0;
 
-	printf("factor => %f\n", length_z);
+		if (factor)
+	printf("factor => %f\n", factor);
 
 	green = 255 - ((int)(factor * z));
 	blue = (int)(factor * z);
 
+	//printf("blue => %d\n", blue);
 	//printf("z => %f\n", z);
 	//if(green != 0 && green != 255)
 	// printf("green => %d\n", green);
@@ -47,7 +52,7 @@ int		color_z(float z, float length_z)
 	//red = red << 16;
 	ret = ret | green;
 	ret = ret | blue;
-	printf("ret ====> %#.8x\n", ret);
+	// printf("ret ====> %#.8x\n", ret);
 	return (ret);
 	//return (0x00FFFFFF);
 }

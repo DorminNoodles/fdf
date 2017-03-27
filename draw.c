@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/27 03:52:17 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:30:53 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,13 @@ float	max_length(t_v2d p1, t_v2d p2)
 		return (ly);
 }
 
+void	draw_pers(t_ml *dna, t_v2d a, t_v2d b)
+{
+
+
+	draw_line(a, b);
+}
+
 void	draw_line_iso(t_ml *dna, t_v2d p1, t_v2d p2)
 {
 	t_v2d a;
@@ -159,7 +166,6 @@ void	draw_line(t_ml *dna, t_v2d p1, t_v2d p2)
 	deltaz = (p2.z - p1.z) / length;
 	while (i <= length)
 	{
-
 		if (!dna->blank)
 			mlx_pixel_put(dna->mlx, dna->win, p1.x, p1.y, color_z(p1.z + fabsf(dna->min_z), len_z));
 		else

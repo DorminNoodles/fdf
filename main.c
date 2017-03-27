@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/26 16:41:07 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/27 17:31:47 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ int main(int argc, char **argv)
 	dna.elevation = 1;
 	dna.scale = 1.0;
 	dna.rot = 1.0;
+	dna.max_z = 0;
+	dna.min_z = 0;
 
 	if (argc == 2)
 		load_map(argv[1], &dna);

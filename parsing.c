@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 21:43:28 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/26 20:09:51 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/27 16:06:13 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@ void		load_map(char *filename, t_ml *dna)
 	printf("check_sign : OK\n");
 	map_size(dna, buff);
 	// dna->map = create_map(dna);
-	create_map2(dna, buff);
-	//fill_map(buff, dna);
+	create_map(dna);
+	fill_map(buff, dna);
 	printf("ta mere la flute\n");
 	printf("map => %d\n", dna->map[2][2]);
 

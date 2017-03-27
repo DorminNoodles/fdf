@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:40 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/26 18:00:52 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/27 14:11:00 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_ml
 void	draw_line(t_ml *env, t_v2d pa, t_v2d pb);
 void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2);
 void	draw_map(t_ml *dna);
-int		**create_map(t_ml *dna);
+// int		**create_map(t_ml *dna);
 void	load_map(char *filename, t_ml *dna);
 void	map_size(t_ml *dna, char *buff);
 void	fill_map(char *buff, t_ml *dna);
@@ -66,5 +66,6 @@ int		color_z(float z, float length_z);
 void	draw_square(t_ml *dna, t_v2d pos, t_v2d size, int color);
 t_v2d	v3d(float x, float y, float z);
 void	create_map2(t_ml *dna, char *buff);
+void	create_map(t_ml *dna);
 
 #endif

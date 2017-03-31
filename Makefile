@@ -1,18 +1,32 @@
 NAME = fdf
-SRCS_NAME =		main.c					\
+NAME_SRCS =		main.c					\
 				draw.c					\
 				map.c					\
 				parsing.c				\
-				color.c
+				color.c					\
+				init.c					\
+				controller.c
 
-OBJS = $(SRCS_NAME:.c=.o)
+OBJS = $(NAME_SRCS:.c=.o)
+SRCS = $(addprefix srcs/,$(NAME_SRCS))
+CC = clang
+INC = -I includes
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C libft/
 	make -C minilibx_macos/
-	clang $(SRCS_NAME) -I libft -L libft -lft -I minilibx_macos -L minilibx_macos -lmlx -framework OpenGL -framework AppKit
+	clang $(SRCS) $(INC) -I libft/includes -L libft -lft -I minilibx_macos -L minilibx_macos -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
+%.o : srcs/%.c includes/fdf.h
+	$(CC) -c $< -o $@ -I includes -I libft/includes
 
 clean :
 	rm -f $(OBJS)
+
+re : all
+
+test :
+
+.PHONY : all, clean, fclean, test, re

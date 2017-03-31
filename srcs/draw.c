@@ -6,13 +6,20 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/27 17:30:53 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/31 14:28:54 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "mlx.h"
 #include <math.h>
 #include "fdf.h"
+
+void	clear_map(t_ml *dna)
+{
+	dna->blank = 1;
+	draw_map(dna);
+	dna->blank = 0;
+}
 
 t_v2d	v3d(float x, float y, float z)
 {
@@ -39,11 +46,9 @@ void	draw_square(t_ml *dna, t_v2d pos, t_v2d size, int color)
 
 	while (x - pos.x < sizex)
 	{
-			// printf("bite x = %d\n", x);
 		y = 0;
 		while (y - pos.y < sizey)
 		{
-			// printf("bite y = %d\n", y);
 			mlx_pixel_put(dna->mlx, dna->win, x, y, color);
 			y++;
 		}
@@ -55,44 +60,31 @@ void	draw_map(t_ml *dna)
 {
 	int x;
 	int y;
-	int z;
-
 	t_v2d a;
 	t_v2d b;
 
-
-	x = 0;
-	y = 0;
-	z = 0;
+	x = -1;
+	y = -1;
 	a.z = 0;
 	b.z = 0;
-
-	while (x < dna->map_w)
+	while (++x < dna->map_w)
 	{
-		y = 0;
-		while (y < dna->map_h)
+		y = -1;
+		while (++y < dna->map_h)
 		{
 			a.z = dna->map[x][y];
-			b.z = dna->map[x + 1][y];
 			if (x < dna->map_w - 1)
 			{
+				b.z = dna->map[x + 1][y];
 				draw_line_iso(dna, v3d(x,y,a.z), v3d(x + 1,y,b.z));
 			}
-
 			a.z = dna->map[x][y];
-			b.z = dna->map[x][y + 1];
-
 			if (y < dna->map_h - 1)
 			{
+				b.z = dna->map[x][y + 1];
 				draw_line_iso(dna, v3d(x,y,a.z), v3d(x,y + 1,b.z));
 			}
-			printf("0 ");
-			y++;
-
-			//printf("%d ", dna->map[y][x]);
 		}
-		printf("\n");
-		x++;
 	}
 }
 
@@ -120,26 +112,18 @@ float	max_length(t_v2d p1, t_v2d p2)
 		return (ly);
 }
 
-void	draw_pers(t_ml *dna, t_v2d a, t_v2d b)
-{
-
-
-	draw_line(a, b);
-}
-
 void	draw_line_iso(t_ml *dna, t_v2d p1, t_v2d p2)
 {
 	t_v2d a;
 	t_v2d b;
 
-	a.x = (p1.x * 32 * dna->scale) - (p1.y * 32 * dna->scale);
-	a.y = (p1.y * 16 * dna->scale) + (p1.x * 16 * dna->scale);
-	b.x = (p2.x * 32 * dna->scale) - (p2.y * 32 * dna->scale);
-	b.y = (p2.y * 16 * dna->scale) + (p2.x * 16 * dna->scale);
+	a.x = (p1.x - p1.y) * 32 * dna->scale;
+	a.y = (p1.y + p1.x) * 16 * dna->scale;
+	b.x = (p2.x - p2.y) * 32 * dna->scale;
+	b.y = (p2.y + p2.x) * 16 * dna->scale;
 
-	a.y -= p1.z * dna->elevation;
-	b.y -= p2.z * dna->elevation;
-
+	a.y -= p1.z * dna->z_height;
+	b.y -= p2.z * dna->z_height;
 	a.z = p1.z;
 	b.z = p2.z;
 	draw_line(dna, a, b);
@@ -161,7 +145,6 @@ void	draw_line(t_ml *dna, t_v2d p1, t_v2d p2)
 	length = max_length(p1, p2);
 	deltax = (p2.x - p1.x) / length;
 	deltay = (p2.y - p1.y) / length;
-
 	float len_z = (dna->max_z - dna->min_z);
 	deltaz = (p2.z - p1.z) / length;
 	while (i <= length)

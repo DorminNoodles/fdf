@@ -6,20 +6,13 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 21:43:28 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/27 16:06:13 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/31 13:58:46 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #include "fdf.h"
 
-void	split_free(char **tb)
-{
-
-}
-
+/*
 char		**split_map(char *buff, t_ml *dna)
 {
 	char **tb;
@@ -55,8 +48,9 @@ char		**split_map(char *buff, t_ml *dna)
 	}
 	return (tb);
 }
+*/
 
-void	check_sign(char *buff)
+void		check_sign(char *buff)
 {
 	int i;
 
@@ -72,7 +66,7 @@ void	check_sign(char *buff)
 	}
 }
 
-void	check_layout(char *buff)
+void		check_layout(char *buff)
 {
 	int i;
 	int j;
@@ -106,32 +100,4 @@ void	check_layout(char *buff)
 		i++;
 	}
 	printf("width = %d\n", width);
-}
-
-void		load_map(char *filename, t_ml *dna)
-{
-	int fd;
-	char buff[USHRT_MAX];
-	int ret;
-
-	ret = 0;
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-	{
-		printf("File Error\n");
-		exit (EXIT_FAILURE);
-	}
-	ret = read (fd, buff, USHRT_MAX - 1);
-	buff[ret] = '\0';
-	check_sign(buff);
-	check_layout(buff);
-
-	printf("check_sign : OK\n");
-	map_size(dna, buff);
-	// dna->map = create_map(dna);
-	create_map(dna);
-	fill_map(buff, dna);
-	printf("ta mere la flute\n");
-	printf("map => %d\n", dna->map[2][2]);
-
 }

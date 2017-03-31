@@ -6,10 +6,13 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 21:45:14 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/27 17:30:27 by lchety           ###   ########.fr       */
+/*   Updated: 2017/03/31 14:37:28 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include "fdf.h"
 
 void	map_size(t_ml *dna, char *buff)
@@ -39,9 +42,18 @@ void	create_map(t_ml *dna)
 	int i;
 
 	i = -1;
-	dna->map = (int**)ft_memalloc(sizeof(int*) * dna->map_w + 1);
-	while (i++ < dna->map_w + 1)
-		dna->map[i] = (int*)ft_memalloc(sizeof(int) * dna->map_h + 1);
+	dna->map = (int**)ft_memalloc(sizeof(int*) * dna->map_w);
+	while (++i < dna->map_w)
+		dna->map[i] = (int*)ft_memalloc(sizeof(int) * dna->map_h);
+}
+
+void	z_limits(t_ml *dna, int z)
+{
+	if (dna->max_z < z)
+		dna->max_z = z;
+	if(dna->min_z > z)
+		dna->min_z = z;
+
 }
 
 void	fill_map(char *buff, t_ml *dna)
@@ -54,7 +66,7 @@ void	fill_map(char *buff, t_ml *dna)
 
 	ft_bzero(hot_plate, 20);
 	i = -1;
-	while (i++ < dna->map_h + 1)
+	while (++i < dna->map_h)
 	{
 		j = 0;
 		while (j < dna->map_w)
@@ -69,10 +81,7 @@ void	fill_map(char *buff, t_ml *dna)
 					k++;
 					hot_plate[k] = *buff;
 					dna->map[j][i] = ft_atoi(hot_plate);
-					if (dna->max_z < dna->map[j][i])
-						dna->max_z = dna->map[j][i];
-					if(dna->min_z > dna->map[j][i])
-						dna->min_z = dna->map[j][i];
+					z_limits(dna, dna->map[j][i]);
 					break;
 				}
 				buff++;
@@ -85,46 +94,31 @@ void	fill_map(char *buff, t_ml *dna)
 	}
 }
 
-/*
-void	create_map2(t_ml *dna, char *buff)
+void		load_map(char *filename, t_ml *dna)
 {
-	int i;
-	int j;
-	int k;
-	int nb_digit;
-	char hot_plate[20];
+	int fd;
+	char buff[USHRT_MAX];
+	int ret;
 
-	i = -1;
-	ft_bzero(hot_plate, 20);
-	i = 0;
-	while (i < dna->map_h + 1)
+	ret = 0;
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
 	{
-		j = 0;
-		while (j < dna->map_w)
-		{
-			k = 0;
-			while (*buff)
-			{
-				hot_plate[k] = *buff;
-				if (ft_isdigit(*buff) && (buff[1] == ' ' || buff[1] == '\n'))
-				{
-					buff++;
-					k++;
-					hot_plate[k] = *buff;
-					printf("test => %d\n", ft_atoi(hot_plate));
-					dna->map[j][i] = 0;
-					printf("HIVE\n");
-					//if ()
-					break;
-				}
-				buff++;
-				k++;
-			}
-			ft_bzero(hot_plate, 20);
-			j++;
-		}
-		printf("\n");
-		i++;
+		printf("File Error\n");
+		exit (EXIT_FAILURE);
 	}
+	ret = read (fd, buff, USHRT_MAX - 1);
+	if (ret == 0)
+	{
+		ft_putstr("Empty file !\n");
+		exit(EXIT_FAILURE);
+	}
+	buff[ret] = '\0';
+	check_sign(buff);
+	check_layout(buff);
+	printf("check_sign : OK\n");
+	map_size(dna, buff);
+	create_map(dna);
+	fill_map(buff, dna);
+
 }
-*/

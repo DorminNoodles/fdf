@@ -6,30 +6,13 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/31 14:37:27 by lchety           ###   ########.fr       */
+/*   Updated: 2017/04/02 19:09:33 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "fdf.h"
-
-void	free_map(t_ml *dna)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-
-	while (i < dna->map_w)
-	{
-		free (dna->map[i]);
-		i++;
-	}
-
-
-}
 
 int		main(int argc, char **argv)
 {

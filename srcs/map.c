@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 21:45:14 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/31 14:37:28 by lchety           ###   ########.fr       */
+/*   Updated: 2017/04/02 19:49:05 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "fdf.h"
+
+void	clear_map(t_ml *dna)
+{
+	dna->blank = 1;
+	draw_map(dna);
+	dna->blank = 0;
+}
 
 void	map_size(t_ml *dna, char *buff)
 {
@@ -49,27 +56,24 @@ void	create_map(t_ml *dna)
 
 void	z_limits(t_ml *dna, int z)
 {
-	if (dna->max_z < z)
-		dna->max_z = z;
-	if(dna->min_z > z)
-		dna->min_z = z;
-
+	dna->max_z = (dna->max_z < z) ? z : dna->max_z;
+	dna->min_z = (dna->min_z > z) ? z : dna->min_z;
 }
 
 void	fill_map(char *buff, t_ml *dna)
 {
-	int i;
-	int j;
-	int k;
-	int nb_digit;
-	char hot_plate[20];
+	int		i;
+	int		j;
+	int		k;
+	int		nb_digit;
+	char	hot_plate[20];
 
 	ft_bzero(hot_plate, 20);
 	i = -1;
 	while (++i < dna->map_h)
 	{
-		j = 0;
-		while (j < dna->map_w)
+		j = -1;
+		while (++j < dna->map_w)
 		{
 			k = 0;
 			while (*buff)
@@ -88,13 +92,11 @@ void	fill_map(char *buff, t_ml *dna)
 				k++;
 			}
 			ft_bzero(hot_plate, 20);
-			j++;
 		}
-		printf("\n");
 	}
 }
 
-void		load_map(char *filename, t_ml *dna)
+void	load_map(char *filename, t_ml *dna)
 {
 	int fd;
 	char buff[USHRT_MAX];

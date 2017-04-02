@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/24 15:48:07 by lchety            #+#    #+#             */
-/*   Updated: 2017/04/02 20:05:24 by lchety           ###   ########.fr       */
+/*   Created: 2017/04/02 18:54:27 by lchety            #+#    #+#             */
+/*   Updated: 2017/04/02 19:13:26 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		color(t_ml *dna, float z)
+void	free_map(t_ml *dna)
 {
-	int ret;
- 	float factor;
-	int red;
-	int green;
-	int blue;
+	int i;
 
-	if (dna->blank)
-		return (0x00000000);
-	if ((dna->max_z - dna->min_z) != 0)
-		factor = 255 / (dna->max_z - dna->min_z);
-	else
-		factor = 0;
-	green = 255 - ((int)(factor * z));
-	blue = (int)(factor * z);
-	ret = 0x00FF0000;
-	green = green << 8;
-	ret = ret | green;
-	ret = ret | blue;
-	return (ret);
+	while (i < dna->map_w)
+	{
+		free(dna->map[i]);
+		dna->map[i] = NULL;
+		i++;
+	}
+	free(dna->map);
+	dna->map = NULL;
 }

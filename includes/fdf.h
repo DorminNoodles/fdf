@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:40 by lchety            #+#    #+#             */
-/*   Updated: 2017/03/30 23:48:51 by lchety           ###   ########.fr       */
+/*   Updated: 2017/04/02 20:05:27 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_v2d
 	float y;
 	float z;
 
-}t_v2d;
+}t_v3d;
 
 typedef struct s_ml
 {
@@ -49,7 +49,7 @@ typedef struct s_ml
 	int **map;
 	int map_w;
 	int map_h;
-	t_v2d origin;
+	t_v3d origin;
 	float min_z;
 	float max_z;
 	int blank;
@@ -61,25 +61,21 @@ typedef struct s_ml
 
 }t_ml;
 
-#define MAP_WIDTH 18
-#define MAP_HEIGHT 10
 #define SCREEN_WIDTH 1500
 #define SCREEN_HEIGHT 800
 #define WINDOW_TITLE "FDF"
 #define SIGN " -\n"
 
 
-void	draw_line(t_ml *env, t_v2d pa, t_v2d pb);
-void	draw_line_iso(t_ml *env, t_v2d p1, t_v2d p2);
+void	draw_line(t_ml *dna, t_v3d a, t_v3d b);
+void	draw_line_iso(t_ml *env, t_v3d p1, t_v3d p2);
 void	draw_map(t_ml *dna);
-// int		**create_map(t_ml *dna);
 void	load_map(char *filename, t_ml *dna);
 void	map_size(t_ml *dna, char *buff);
 void	fill_map(char *buff, t_ml *dna);
-char	**split_map(char *buff, t_ml *dna);
-int		color_z(float z, float length_z);
-void	draw_square(t_ml *dna, t_v2d pos, t_v2d size, int color);
-t_v2d	v3d(float x, float y, float z);
+int		color(t_ml *dna, float z);
+void	draw_square(t_ml *dna, t_v3d pos, t_v3d size, int color);
+t_v3d	v3d(float x, float y, float z);
 void	create_map2(t_ml *dna, char *buff);
 void	create_map(t_ml *dna);
 void	init(t_ml *dna);
@@ -88,5 +84,6 @@ int		controller(int keycode, void *param);
 void	clear_map(t_ml *dna);
 void	check_sign(char *buff);
 void	check_layout(char *buff);
+void	free_map(t_ml *dna);
 
 #endif

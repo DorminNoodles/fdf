@@ -5,6 +5,7 @@ NAME_SRCS =		main.c					\
 				parsing.c				\
 				color.c					\
 				init.c					\
+				free.c					\
 				controller.c
 
 OBJS = $(NAME_SRCS:.c=.o)
@@ -23,6 +24,8 @@ $(NAME) : $(OBJS)
 	$(CC) -c $< -o $@ -I includes -I libft/includes
 
 clean :
+	make -C libft/ clean
+	make -C minilibx_macos/ clean
 	rm -f $(OBJS)
 
 re : all

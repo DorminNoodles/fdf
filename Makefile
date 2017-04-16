@@ -11,14 +11,14 @@ NAME_SRCS =		main.c					\
 OBJS = $(NAME_SRCS:.c=.o)
 SRCS = $(addprefix srcs/,$(NAME_SRCS))
 CC = clang
-INC = -I includes
+INC = -I includes -I minilibx_macos -I libft/includes
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C libft/
 	make -C minilibx_macos/
-	clang $(SRCS) $(INC) -I libft/includes -L libft -lft -I minilibx_macos -L minilibx_macos -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	clang $(SRCS) $(INC) -L libft -lft -L minilibx_macos -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o : srcs/%.c includes/fdf.h
 	$(CC) -c $< -o $@ -I includes -I libft/includes

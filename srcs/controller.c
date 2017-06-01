@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 16:34:23 by lchety            #+#    #+#             */
-/*   Updated: 2017/04/02 19:57:05 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/01 14:14:12 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int		controller(int keycode, void *param)
 
 	dna = param;
 	clear_map(dna);
-
 	if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
 		move(keycode, dna);
 	if (keycode == ZOOM_IN || keycode == ZOOM_OUT)
@@ -75,8 +74,6 @@ int		controller(int keycode, void *param)
 		free_map(dna);
 		exit(EXIT_SUCCESS);
 	}
-
 	draw_map(dna);
-
 	return (0);
 }

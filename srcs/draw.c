@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:11 by lchety            #+#    #+#             */
-/*   Updated: 2017/04/02 20:06:42 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/01 16:58:49 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	draw_line(t_ml *dna, t_v3d a, t_v3d b)
 	while (i <= length)
 	{
 		mlx_pixel_put(dna->mlx, dna->win, a.x, a.y, color(dna, a.z +
-		fabsf(dna->min_z));
+		fabsf(dna->min_z)));
 		a.x += deltax;
 		a.y += deltay;
 		a.z += deltaz;

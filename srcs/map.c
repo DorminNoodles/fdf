@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 21:45:14 by lchety            #+#    #+#             */
-/*   Updated: 2017/04/02 19:49:05 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/01 18:15:26 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,37 @@ void	create_map(t_ml *dna)
 	int i;
 
 	i = -1;
-	dna->map = (int**)ft_memalloc(sizeof(int*) * dna->map_w);
+	if (!(dna->map = (int**)ft_memalloc(sizeof(int*) * dna->map_w)))
+		exit(EXIT_FAILURE);
 	while (++i < dna->map_w)
-		dna->map[i] = (int*)ft_memalloc(sizeof(int) * dna->map_h);
+		if (!(dna->map[i] = (int*)ft_memalloc(sizeof(int) * dna->map_h)))
+			exit(EXIT_FAILURE);
 }
 
-void	z_limits(t_ml *dna, int z)
+int		get_z(char **buff)
 {
-	dna->max_z = (dna->max_z < z) ? z : dna->max_z;
-	dna->min_z = (dna->min_z > z) ? z : dna->min_z;
+	int		k;
+	char	hot_plate[20];
+
+	k = 0;
+	ft_bzero(hot_plate, 20);
+	while (**buff)
+	{
+		hot_plate[k] = **buff;
+		printf("display %c\n", **buff);
+		if (ft_isdigit(**buff) && (buff[0][1] == ' ' || buff[0][1] == '\n'))
+		{
+			*buff++;
+			k++;
+			printf("%d\n", **buff);
+			hot_plate[k] = **buff;
+			printf("%s\n", hot_plate);
+			break;
+		}
+		k++;
+		*buff++;
+	}
+	return (ft_atoi(hot_plate));
 }
 
 void	fill_map(char *buff, t_ml *dna)
@@ -75,23 +97,28 @@ void	fill_map(char *buff, t_ml *dna)
 		j = -1;
 		while (++j < dna->map_w)
 		{
-			k = 0;
-			while (*buff)
-			{
-				hot_plate[k] = *buff;
-				if (ft_isdigit(*buff) && (buff[1] == ' ' || buff[1] == '\n'))
+			dna->map[j][i] = get_z(&buff);
+			printf("%d\n", dna->map[j][i]);
+			/*
+				k = 0;
+				while (*buff)
 				{
+
+					hot_plate[k] = *buff;
+					if (ft_isdigit(*buff) && (buff[1] == ' ' || buff[1] == '\n'))
+					{
+						buff++;
+						k++;
+						hot_plate[k] = *buff;
+						dna->map[j][i] = ft_atoi(hot_plate);
+						z_limits(dna, dna->map[j][i]);
+						break;
+					}
 					buff++;
 					k++;
-					hot_plate[k] = *buff;
-					dna->map[j][i] = ft_atoi(hot_plate);
-					z_limits(dna, dna->map[j][i]);
-					break;
 				}
-				buff++;
-				k++;
-			}
-			ft_bzero(hot_plate, 20);
+				ft_bzero(hot_plate, 20);
+			*/
 		}
 	}
 }
@@ -107,20 +134,17 @@ void	load_map(char *filename, t_ml *dna)
 	if (fd == -1)
 	{
 		printf("File Error\n");
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
-	ret = read (fd, buff, USHRT_MAX - 1);
+	ret = read(fd, buff, USHRT_MAX - 1);
 	if (ret == 0)
 	{
 		ft_putstr("Empty file !\n");
 		exit(EXIT_FAILURE);
 	}
 	buff[ret] = '\0';
-	check_sign(buff);
-	check_layout(buff);
-	printf("check_sign : OK\n");
+	check_map(buff);
 	map_size(dna, buff);
 	create_map(dna);
 	fill_map(buff, dna);
-
 }

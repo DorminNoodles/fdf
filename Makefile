@@ -28,7 +28,12 @@ clean :
 	make -C minilibx_macos/ clean
 	rm -f $(OBJS)
 
-re : all
+re : fclean all
+	make -C libft/ re
+
+fclean : clean
+	make -C libft/ fclean
+	rm -f $(NAME)
 
 test :
 

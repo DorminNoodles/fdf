@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 15:48:07 by lchety            #+#    #+#             */
-/*   Updated: 2017/04/02 20:05:24 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/01 14:10:06 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int		color(t_ml *dna, float z)
 {
-	int ret;
- 	float factor;
-	int red;
-	int green;
-	int blue;
+	int		ret;
+	float	factor;
+	int		red;
+	int		green;
+	int		blue;
 
 	if (dna->blank)
 		return (0x00000000);

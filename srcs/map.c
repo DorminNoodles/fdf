@@ -67,16 +67,18 @@ int		get_z(char **buff)
 	while (*buff && k < 20)
 	{
 		hot_plate[k] = **buff;
+		if (k >= 12)
+			exit(EXIT_FAILURE);
 		if (ft_isdigit(**buff) && (buff[0][1] == ' ' || buff[0][1] == '\n'))
 		{
-			printf("hot_plate before => %s\n", hot_plate);
 			(*buff)++;
 			break;
 		}
 		k++;
 		(*buff)++;
 	}
-	printf("hot plate => %s\n", hot_plate);
+	if (**buff != ' ' && **buff != '\n')
+		exit(EXIT_FAILURE);
 	return (ft_atoi(hot_plate));
 }
 
@@ -95,30 +97,8 @@ void	fill_map(char *buff, t_ml *dna)
 		j = -1;
 		while (++j < dna->map_w)
 		{
-			printf("fuck yourself !\n");
 			dna->map[j][i] = get_z(&buff);
 			z_limits(dna, dna->map[j][i]);
-			// printf("%s\n", buff);
-			// printf("%d\n", dna->map[j][i]);
-			/*
-				k = 0;
-				while (*buff)
-				{
-					hot_plate[k] = *buff;
-					if (ft_isdigit(*buff) && (buff[1] == ' ' || buff[1] == '\n'))
-					{
-						buff++;
-						k++;
-						hot_plate[k] = *buff;
-						dna->map[j][i] = ft_atoi(hot_plate);
-						z_limits(dna, dna->map[j][i]);
-						break;
-					}
-					buff++;
-					k++;
-				}
-				ft_bzero(hot_plate, 20);
-			*/
 		}
 	}
 }
@@ -144,7 +124,8 @@ void	load_map(char *filename, t_ml *dna)
 	buff[ret] = '\0';
 	check_map(buff);
 	map_size(dna, buff);
+	if (dna->map_w < 2)
+		exit(EXIT_FAILURE);
 	create_map(dna);
 	fill_map(buff, dna);
-	printf("SEGV\n");
 }

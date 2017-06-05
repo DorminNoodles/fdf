@@ -27,17 +27,17 @@ int		main(int argc, char **argv)
 	void *win;
 
 	init(&dna);
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
-	dna.mlx = mlx;
-	dna.win = win;
 	if (argc == 2)
-		load_map(argv[1], &dna);
+	load_map(argv[1], &dna);
 	else
 	{
 		ft_putstr("usage: fdf input_file\n");
 		exit(EXIT_FAILURE);
 	}
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
+	dna.mlx = mlx;
+	dna.win = win;
 	draw_map(&dna);
 	mlx_hook(win, 2, 3, &controller, &dna);
 	mlx_loop(mlx);

@@ -63,22 +63,20 @@ int		get_z(char **buff)
 
 	k = 0;
 	ft_bzero(hot_plate, 20);
-	while (**buff)
+
+	while (*buff && k < 20)
 	{
 		hot_plate[k] = **buff;
-		printf("display %c\n", **buff);
 		if (ft_isdigit(**buff) && (buff[0][1] == ' ' || buff[0][1] == '\n'))
 		{
-			*buff++;
-			k++;
-			printf("%d\n", **buff);
-			hot_plate[k] = **buff;
-			printf("%s\n", hot_plate);
+			printf("hot_plate before => %s\n", hot_plate);
+			(*buff)++;
 			break;
 		}
 		k++;
-		*buff++;
+		(*buff)++;
 	}
+	printf("hot plate => %s\n", hot_plate);
 	return (ft_atoi(hot_plate));
 }
 
@@ -90,20 +88,22 @@ void	fill_map(char *buff, t_ml *dna)
 	int		nb_digit;
 	char	hot_plate[20];
 
-	ft_bzero(hot_plate, 20);
 	i = -1;
+	ft_bzero(hot_plate, 20);
 	while (++i < dna->map_h)
 	{
 		j = -1;
 		while (++j < dna->map_w)
 		{
+			printf("fuck yourself !\n");
 			dna->map[j][i] = get_z(&buff);
-			printf("%d\n", dna->map[j][i]);
+			z_limits(dna, dna->map[j][i]);
+			// printf("%s\n", buff);
+			// printf("%d\n", dna->map[j][i]);
 			/*
 				k = 0;
 				while (*buff)
 				{
-
 					hot_plate[k] = *buff;
 					if (ft_isdigit(*buff) && (buff[1] == ' ' || buff[1] == '\n'))
 					{
@@ -128,7 +128,6 @@ void	load_map(char *filename, t_ml *dna)
 	int fd;
 	char buff[USHRT_MAX];
 	int ret;
-
 	ret = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -147,4 +146,5 @@ void	load_map(char *filename, t_ml *dna)
 	map_size(dna, buff);
 	create_map(dna);
 	fill_map(buff, dna);
+	printf("SEGV\n");
 }

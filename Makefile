@@ -21,7 +21,7 @@ $(NAME) : $(OBJS)
 	clang $(SRCS) $(INC) -L libft -lft -L minilibx_macos -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o : srcs/%.c includes/fdf.h
-	$(CC) -c $< -o $@ -I includes -I libft/includes
+	$(CC) -c $< -o $@ -I includes -I libft/includes -I minilibx_macos
 
 clean :
 	make -C libft/ clean

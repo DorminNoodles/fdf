@@ -35,6 +35,8 @@ int		main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	mlx = mlx_init();
+	if (!mlx)
+		return (0);
 	win = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
 	dna.mlx = mlx;
 	dna.win = win;

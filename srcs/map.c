@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 21:45:14 by lchety            #+#    #+#             */
-/*   Updated: 2017/06/01 18:15:26 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/07 08:52:20 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "fdf.h"
-
-void	clear_map(t_ml *dna)
-{
-	dna->blank = 1;
-	draw_map(dna);
-	dna->blank = 0;
-}
 
 void	map_size(t_ml *dna, char *buff)
 {
@@ -63,22 +56,21 @@ int		get_z(char **buff)
 
 	k = 0;
 	ft_bzero(hot_plate, 20);
-
 	while (*buff && k < 20)
 	{
 		hot_plate[k] = **buff;
 		if (k >= 12)
-			exit(EXIT_FAILURE);
+			error("Too large values\n");
 		if (ft_isdigit(**buff) && (buff[0][1] == ' ' || buff[0][1] == '\n'))
 		{
 			(*buff)++;
-			break;
+			break ;
 		}
 		k++;
 		(*buff)++;
 	}
 	if (**buff != ' ' && **buff != '\n')
-		exit(EXIT_FAILURE);
+		error("error : map layout\n");
 	return (ft_atoi(hot_plate));
 }
 
@@ -105,22 +97,17 @@ void	fill_map(char *buff, t_ml *dna)
 
 void	load_map(char *filename, t_ml *dna)
 {
-	int fd;
-	char buff[USHRT_MAX];
-	int ret;
+	int		fd;
+	char	buff[USHRT_MAX];
+	int		ret;
+
 	ret = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-	{
-		printf("File Error\n");
-		exit(EXIT_FAILURE);
-	}
+		error("File error\n");
 	ret = read(fd, buff, USHRT_MAX - 1);
 	if (ret == 0)
-	{
-		ft_putstr("Empty file !\n");
-		exit(EXIT_FAILURE);
-	}
+		error("Empty file\n");
 	buff[ret] = '\0';
 	check_map(buff);
 	map_size(dna, buff);

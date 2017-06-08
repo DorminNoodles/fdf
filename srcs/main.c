@@ -6,13 +6,19 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 23:21:03 by lchety            #+#    #+#             */
-/*   Updated: 2017/06/01 16:58:23 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/07 08:41:55 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "fdf.h"
+
+void	error(char *str)
+{
+	ft_putstr(str);
+	exit(EXIT_FAILURE);
+}
 
 void	z_limits(t_ml *dna, int z)
 {
@@ -28,12 +34,9 @@ int		main(int argc, char **argv)
 
 	init(&dna);
 	if (argc == 2)
-	load_map(argv[1], &dna);
+		load_map(argv[1], &dna);
 	else
-	{
-		ft_putstr("usage: fdf input_file\n");
-		exit(EXIT_FAILURE);
-	}
+		error("usage: fdf input_file\n");
 	mlx = mlx_init();
 	if (!mlx)
 		return (0);

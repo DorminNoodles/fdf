@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 21:43:28 by lchety            #+#    #+#             */
-/*   Updated: 2017/06/07 08:38:51 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/09 16:31:00 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,13 @@ void		check_layout(char *buff)
 		}
 		i++;
 	}
+}
+
+int			range(int nb)
+{
+	if (nb > RANGE_MAX)
+		return (RANGE_MAX);
+	else if (nb < -RANGE_MAX)
+		return (-RANGE_MAX);
+	return (nb);
 }

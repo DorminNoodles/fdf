@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 15:35:40 by lchety            #+#    #+#             */
-/*   Updated: 2017/06/07 09:00:19 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/09 16:43:04 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@
 # define DOWN_Z 121
 # define ESCAPE 53
 # define RESET 12
+# define RANGE_MAX 120000
+# define BUFF_SIZE 700000
+
+typedef struct	s_v3d
+{
+	float x;
+	float y;
+	float z;
+
+}				t_v3d;
 
 typedef struct	s_ml
 {
@@ -77,5 +87,6 @@ void			check_layout(char *buff);
 void			free_map(t_ml *dna);
 void			z_limits(t_ml *dna, int z);
 void			error(char *str);
+int				range(int nb);
 
 #endif

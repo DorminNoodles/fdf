@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/02 18:54:27 by lchety            #+#    #+#             */
-/*   Updated: 2017/06/07 08:52:38 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/09 16:28:18 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_map(t_ml *dna)
 {
 	int i;
 
+	i = 0;
 	while (i < dna->map_w)
 	{
 		free(dna->map[i]);

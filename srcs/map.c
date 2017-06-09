@@ -6,7 +6,7 @@
 /*   By: lchety <lchety@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 21:45:14 by lchety            #+#    #+#             */
-/*   Updated: 2017/06/07 08:52:20 by lchety           ###   ########.fr       */
+/*   Updated: 2017/06/09 16:31:17 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ void	fill_map(char *buff, t_ml *dna)
 {
 	int		i;
 	int		j;
-	int		k;
-	int		nb_digit;
 	char	hot_plate[20];
 
 	i = -1;
@@ -89,7 +87,7 @@ void	fill_map(char *buff, t_ml *dna)
 		j = -1;
 		while (++j < dna->map_w)
 		{
-			dna->map[j][i] = get_z(&buff);
+			dna->map[j][i] = range(get_z(&buff));
 			z_limits(dna, dna->map[j][i]);
 		}
 	}
@@ -98,14 +96,14 @@ void	fill_map(char *buff, t_ml *dna)
 void	load_map(char *filename, t_ml *dna)
 {
 	int		fd;
-	char	buff[USHRT_MAX];
+	char	buff[BUFF_SIZE];
 	int		ret;
 
 	ret = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		error("File error\n");
-	ret = read(fd, buff, USHRT_MAX - 1);
+	ret = read(fd, buff, BUFF_SIZE - 1);
 	if (ret == 0)
 		error("Empty file\n");
 	buff[ret] = '\0';

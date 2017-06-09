@@ -12,16 +12,17 @@ OBJS = $(NAME_SRCS:.c=.o)
 SRCS = $(addprefix srcs/,$(NAME_SRCS))
 CC = clang
 INC = -I includes -I minilibx_macos -I libft/includes
+FLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C libft/
 	make -C minilibx_macos/
-	clang $(SRCS) $(INC) -L libft -lft -L minilibx_macos -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	clang $(SRCS) $(FLAGS) $(INC) -L libft -lft -L minilibx_macos -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o : srcs/%.c includes/fdf.h
-	$(CC) -c $< -o $@ -I includes -I libft/includes -I minilibx_macos
+	$(CC) $(FLAGS) -c $< -o $@ -I includes -I libft/includes -I minilibx_macos
 
 clean :
 	make -C libft/ clean
